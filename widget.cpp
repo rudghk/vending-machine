@@ -74,18 +74,21 @@ void Widget::on_pbMilk_clicked()
 void Widget::on_pdChanges_clicked()
 {
     QMessageBox msgBox;
-    std::string changesStr = "";
+//    std::string changesStr = "";
+    QString changeStr = "";
     int curMoney = money;
-    int moneyCount[4] = {500, 100, 50, 10};
+    int moneyCount[] = {500, 100, 50, 10};
     int q;
-    for (int i=0;i<4;i++){
+    int count = sizeof(moneyCount)/sizeof(int);
+    for (int i=0;i<count;i++){
         q = int(curMoney / moneyCount[i]);
         if(q>0){
             curMoney = curMoney % moneyCount[i];
-            changesStr = changesStr+std::to_string(moneyCount[i])+"원 "+std::to_string(q)+"개\n";
+            changeStr += QString::number(moneyCount[i])+"원 "+QString::number(q)+"개\n";
+//            changesStr = changesStr+std::to_string(moneyCount[i])+"원 "+std::to_string(q)+"개\n";
         }
     }
     changeMoney(-money);
-    msgBox.information(this, "잔돈 반환", QString::fromStdString(changesStr));
+    msgBox.information(this, "잔돈 반환", changeStr);
 }
 
